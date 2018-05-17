@@ -10,6 +10,8 @@ Vue.use(Vuenut)
 
 
 
+Vue.prototype.$isNull = (value) => value === null
+
 Vue.config.productionTip = false
 
 new Vue({

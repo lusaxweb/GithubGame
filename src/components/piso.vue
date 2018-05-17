@@ -1,7 +1,7 @@
 <template lang="html">
   <section class="container">
     <div id="tridiv">
-  <div class="scene" style="-webkit-transform:rotateX(-38deg) rotateY(-45deg); -moz-transform:rotateX(-38deg) rotateY(-45deg); -ms-transform:rotateX(-38deg) rotateY(-45deg); transform:rotateX(-38deg) rotateY(-45deg); ">
+  <div class="scene" style=" ">
     <div class="shape cuboid-1 cub-1">
       <div class="face tp">
         <div :class="{
@@ -9,8 +9,10 @@
           }"
            @click="selectionx(slot)" v-for="slot in $store.state.slots" class="caja">
            {{slot.object}}
-           <div v-if="slot.object" class="objectx" is="cubo">
+           <div v-if="slot.object" class="objectx">
+             <div  class="" is="cubo">
 
+             </div>
            </div>
         </div>
       </div>
@@ -30,8 +32,24 @@ export default {
     selection:null,
   }),
   methods:{
-    selectionx(number){
-      this.$store.state.selected = number
+    selectionx(objectx){
+      if(this.$store.state.remove){
+        objectx.object = null
+      }
+
+      let selectedx = this.$store.state.selected
+      console.log();
+      if(this.$isNull(selectedx)){
+        this.$store.state.selected = objectx
+      } else {
+        if(this.$store.state.selected.number === objectx.number) {
+          this.$store.state.selected = null
+        } else {
+          this.$store.state.selected = objectx
+        }
+      }
+
+
     }
   }
 }
@@ -40,8 +58,25 @@ export default {
 <style lang="css">
 .objectx {
   transform-style: preserve-3d;
-  transform: rotate(-40deg) translate(0px,-30px) !important;
+  /* transform: rotate(-40deg) translate(0px,-30px) !important; */
   /* transform-origin: 0 0; */
+  /* transform:rotateX(38deg) rotateY(45deg); */
+  /* transform: scale(1) rotate(15deg) translate(-20px,-20px); */
+  /* height: 100px; */
+  /* background: rgb(230, 139, 217); */
+  /* transform: rotate(-38deg) translate(-10px); */
+  /* position: absolute; */
+  /* top: 0px; */
+  transform: rotate(-45deg) scaleY(1.60) translate(0%,-49%);
+  width: 145%;
+  height: 145%;
+  top: 0px;
+  position: absolute;
+  left: 0px;
+}
+.objectx svg {
+  display: block;
+  position: relative;
 }
 .selected {
   background: rgb(31, 230, 145) !important;
@@ -72,7 +107,8 @@ export default {
   height: 600px;
   /* top: 50%; */
   /* left: 50%; */
-  transform: translate(-50%,-50%);
+  /* transform: translate(-50%,-50%); */
+  transform:rotateX(-38deg) rotateY(-45deg);
 }
 .shape {
   top: 50%;
@@ -147,6 +183,7 @@ export default {
   height:500px;
 }
 .cub-1 .face {
+  border: 20px solid rgb(86, 164, 97);
   background-color:#FFFFFF;
 }
 
@@ -158,6 +195,7 @@ export default {
   float: left;
   border: 1px solid rgb(41, 41, 41);
   box-sizing: border-box;
+  position: relative;
 }
 .caja:hover {
   background: rgb(127, 198, 100);
